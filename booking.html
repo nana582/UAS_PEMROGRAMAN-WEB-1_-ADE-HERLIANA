@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Transaksi - Indonesian Tourism</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #ff6f61;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        section {
+            padding: 20px;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            border-radius: 10px;
+        }
+        h2 {
+            color: #ff6f61;
+            text-align: center;
+        }
+        h3 {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        form input, form select, form button {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        form button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #e65c50;
+        }
+        #bookingResult {
+            padding: 20px;
+            background-color: #e0f7fa;
+            border: 1px solid #b2ebf2;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Booking Transaksi - Indonesian Tourism</h1>
+    </header>
+    <nav>
+        <a href="index.html#home">Home</a>
+        <a href="index.html#kebudayaan">Kebudayaan</a>
+        <a href="index.html#tempat-wisata">Tempat Wisata</a>
+        <a href="index.html#hotel">Hotel</a>
+        <a href="#transaksi">Booking</a>
+    </nav>
+    <section id="transaksi">
+        <h2>Transaksi Pemesanan Hotel</h2>
+        <form id="bookingForm">
+            <label for="name">Nama Pengunjung:</label>
+            <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+            <br>
+            <label for="email">Alamat Email:</label>
+            <input type="email" id="email" name="email" placeholder="Masukkan alamat email Anda" required>
+            <br>
+            <label for="hotel">Pilih Hotel:</label>
+            <select id="hotel" name="hotel" required>
+                <option value="" disabled selected>Pilih hotel</option>
+                <option value="kempinski">Hotel Indonesia Kempinski</option>
+                <option value="grandHyatt">Grand Hyatt Bali</option>
+            </select>
+            <br>
+            <label for="checkin">Tanggal Check-in:</label>
+            <input type="date" id="checkin" name="checkin" required>
+            <br>
+            <label for="checkout">Tanggal Check-out:</label>
+            <input type="date" id="checkout" name="checkout" required>
+            <br>
+            <label for="payment">Metode Pembayaran:</label>
+            <select id="payment" name="payment" required>
+                <option value="" disabled selected>Pilih metode pembayaran</option>
+                <option value="creditCard">Kartu Kredit</option>
+                <option value="paypal">PayPal</option>
+                <option value="bankTransfer">Transfer Bank</option>
+            </select>
+            <br>
+            <button type="button" onclick="processBooking()">Pesan Sekarang</button>
+        </form>
+        <div id="bookingResult"></div>
+    </section>
+    <script>
+        function processBooking() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const hotel = document.getElementById('hotel').value;
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            const payment = document.getElementById('payment').value;
+
+            if (!name || !email || !hotel || !checkin || !checkout || !payment) {
+                alert("Harap isi semua field pemesanan.");
+                return;
+            }
+
+            let hotelName = hotel === 'kempinski' ? 'Hotel Indonesia Kempinski' : 'Grand Hyatt Bali';
+            let paymentMethod = '';
+            switch(payment) {
+                case 'creditCard':
+                    paymentMethod = 'Kartu Kredit';
+                    break;
+                case 'paypal':
+                    paymentMethod = 'PayPal';
+                    break;
+                case 'bankTransfer':
+                    paymentMethod = 'Transfer Bank';
+                    break;
+            }
+
+            let result = 
+                '<h3>Hasil Booking</h3>' +
+                '<p>Nama Pengunjung: ' + name + '</p>' +
+                '<p>Email: ' + email + '</p>' +
+                '<p>Hotel: ' + hotelName + '</p>' +
+                '<p>Tanggal Check-in: ' + checkin + '</p>' +
+                '<p>Tanggal Check-out: ' + checkout + '</p>' +
+                '<p>Metode Pembayaran: ' + paymentMethod + '</p>';
+
+            document.getElementById('bookingResult').innerHTML = result;
+        }
+    </script>
+</body>
+</html>
